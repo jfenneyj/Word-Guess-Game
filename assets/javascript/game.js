@@ -5,7 +5,7 @@ var wins = 0;
 var loss = 0;
 var wrongLetter = [];
 var attemptsLeft = 10;
-var display = [arrLength];
+var display = "";
 var userGuesses = [];
 
 
@@ -15,14 +15,61 @@ var userGuesses = [];
 
 // Randomly call words from array
 var randomWord = guessWord[Math.floor(Math.random() * guessWord.length)];
-console.log(randomWord);
+var word = randomWord.split("");
+console.log(word);
 
-  for(var i = 0; i < randomWord.length; i++){
+for (var i = 0; i < word.length; i++) {
+  display = display + "_ "
   // split array into separate charactors
+}
+console.log(display);
+$("#letters").text(display);
+// input from the user
+
+document.onkeyup = function (event) {
+  if (event.which >= 48 && event.which <= 90) {
+
+
+
+    if (attemptsLeft == 0) {
+      alert("You lose")
+    } else {
+      var letter = event.key.toLowerCase();
+      console.log(letter);
+      for (var i = 0; i < word.length; i++) {
+
+        console.log(word[i]);
+        if (word[i] === letter) {
+          console.log("Your right")
+        }
+
+      }
+      attemptsLeft--;
+      userGuesses.push(letter)
+      console.log(userGuesses);
+      var flag = true;
+      for(var j = 0; j < word.length; j++){
+        if(!userGuesses.includes(word[j])){
+          flag = false;
+        }
+        console.log(userGuesses.includes(word[j]))
+      }
+
+      if(flag){
+        console.log("win")
+      }
+    }
+
+    $("#wrong").text(userGuesses)
+    $("#left").text(attemptsLeft)
+
+
+
   }
 
-  // input from the user
 
+
+}
 
 
 // Display on to screen underscore and replace with userGuess letters
