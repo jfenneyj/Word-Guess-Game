@@ -6,7 +6,7 @@ var losses = 0;
 var attemptsLeft = 10;
 var display = "  _  ";
 var userGuesses = [];
-
+var wrongLetter;
 
 // Function
 //////////////////////////////////////
@@ -24,7 +24,7 @@ console.log(word);
 // displays underscores
 for (var i = 0; i < word.length; i++) {
   display = display + "_ "
-  
+
 }
 console.log(display);
 $("#letters").text(display);
@@ -33,6 +33,14 @@ $("#letters").text(display);
 document.onkeyup = function (event) {
   if (event.which >= 48 && event.which <= 90) {
 
+    // checking to see if letter exist inside the word
+    if (randomWord.indexOf(userGuesses) > -1) {
+      console.log("yes");
+    }
+    else {
+      wrongLetter.push(userGuesses);
+      console.log(wrongLetter);
+    }
 
     if (attemptsLeft == 0) {
       alert("You lose")
@@ -49,34 +57,36 @@ document.onkeyup = function (event) {
       }
       attemptsLeft--;
 
-// addingletters to userGuess
+      // addingletters to userGuess
       userGuesses.push(letter)
       console.log(userGuesses);
 
-      var flag = true;
-      for(var j = 0; j < word.length; j++){
-        if(!userGuesses.includes(word[j])){
-          flag = false;
-         
-        } else if (){}
-        console.log(userGuesses.includes(word[j]))
-         // *update game with guess
-         if (word[j] === userGuesses) {
-          display[j] = userGuesses;
-          remainingLetters--;
-        }
-      }
+      // var flag = true;
+      for (var j = 0; j < word.length; j++) {
+        if (userGuesses.includes(word[j])) {
+          // flag = false;
 
-      if(flag){
-        console.log("win")
+        }
+
+      }
+      console.log(userGuesses.includes(word[j]))
+      // *update game with guess
+      if (word[j] === userGuesses) {
+        display[j] = userGuesses;
+        remainingLetters--;
       }
     }
-$("#wrong").text(userGuesses)
-$("#left").text(attemptsLeft)
-// my adds
-$("#wins").text(wins)
-$("#losses").text(losses)
+
+    if (flag) {
+      console.log("win")
+    }
   }
-};
+  $("#wrong").text(userGuesses)
+  $("#left").text(attemptsLeft)
+  // my adds
+  $("#wins").text(wins)
+  $("#losses").text(losses)
+}
+
 
 
