@@ -2,10 +2,10 @@
 //////////////////////////////////
 var guessWord = ["frizzy", "quacky", "jockey", "zombie", "object"];
 var wins = 0;
-var loss = 0;
-var wrongLetter = [];
+var losses = 0;
+var remainingLetters = [];
 var attemptsLeft = 10;
-var display = "";
+var display = ["_"];
 var userGuesses = [];
 
 
@@ -13,14 +13,17 @@ var userGuesses = [];
 //////////////////////////////////////
 
 
-// Randomly call words from array
+// Call a random word
 var randomWord = guessWord[Math.floor(Math.random() * guessWord.length)];
+// split words into separate characters
 var word = randomWord.split("");
 console.log(word);
 
+
+
 for (var i = 0; i < word.length; i++) {
   display = display + "_ "
-  // split array into separate charactors
+  
 }
 console.log(display);
 $("#letters").text(display);
@@ -51,8 +54,14 @@ document.onkeyup = function (event) {
       for(var j = 0; j < word.length; j++){
         if(!userGuesses.includes(word[j])){
           flag = false;
-        }
+         
+        } 
         console.log(userGuesses.includes(word[j]))
+         // *update game with guess
+         if (word[j] === userGuesses) {
+          display[j] = userGuesses;
+          remainingLetters--;
+        }
       }
 
       if(flag){
@@ -62,7 +71,9 @@ document.onkeyup = function (event) {
 
     $("#wrong").text(userGuesses)
     $("#left").text(attemptsLeft)
-
+    // my adds
+    $("#wins").text(wins)
+    $("#losses").text(losses)
 
 
   }
