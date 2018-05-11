@@ -6,7 +6,7 @@ var losses = 0;
 var attemptsLeft = 10;
 var display = "  _  ";
 var userGuesses = [];
-var wrongLetter;
+var wrongLetter = [];
 
 // Function
 //////////////////////////////////////
@@ -30,58 +30,88 @@ console.log(display);
 $("#letters").text(display);
 
 
+function resetGame(){
+  var randomWord = guessWord[Math.floor(Math.random() * guessWord.length)];
+  console.log(randomWord);
+  
+  // set up letter array
+  
+  var word = randomWord.split("");
+  console.log(word);
+  display = "";
+  // displays underscores
+  for (var i = 0; i < word.length; i++) {
+    display = display + "_ "
+  
+  }
+  console.log(display);
+  $("#letters").text(display);
+   attemptsLeft = 10;
+
+}
+
+
+
 document.onkeyup = function (event) {
   if (event.which >= 48 && event.which <= 90) {
 
-    // checking to see if letter exist inside the word
-    if (randomWord.indexOf(userGuesses) > -1) {
-      console.log("yes");
-    }
-    else {
-      wrongLetter.push(userGuesses);
-      console.log(wrongLetter);
-    }
+    // // checking to see if letter exist inside the word
+    // if (randomWord.indexOf(userGuesses) > -1) {
+    //   console.log("yes");
+    // }
+    // else {
+    //   wrongLetter.push(userGuesses);
+    //   console.log(wrongLetter);
+    // }
 
     if (attemptsLeft == 0) {
-      alert("You lose")
+      losses++;
+      resetGame();
     } else {
       var letter = event.key.toLowerCase();
-      console.log(letter);
+console.log(letter);
+
+      if (userGuesses.indexOf(letter) == -1 && randomWord.indexOf(letter) > -1) {
+        userGuesses.push(letter)
+        console.log(userGuesses);
+      }
+      else if (randomWord.indexOf(letter) == -1) {
+        wrongLetter.push(letter);
+        attemptsLeft--;
+      }
+
+      var word = randomWord.split("");
+
+      var flag = true;
+      // displays underscores
       for (var i = 0; i < word.length; i++) {
-
-        console.log(word[i]);
-        if (word[i] === letter) {
-          alert("Your right")
-        }
-
-      }
-      attemptsLeft--;
-
-      // addingletters to userGuess
-      userGuesses.push(letter)
-      console.log(userGuesses);
-
-      // var flag = true;
-      for (var j = 0; j < word.length; j++) {
-        if (userGuesses.includes(word[j])) {
-          // flag = false;
+        if (userGuesses.indexOf(word[i]) == -1) {
+          flag = false;
 
         }
 
       }
-      console.log(userGuesses.includes(word[j]))
+      if(flag == true) {
+        wins++;
+        resetGame();
+      }
+      
+
+      //console.log(userGuesses.includes(word[j]))
       // *update game with guess
-      if (word[j] === userGuesses) {
-        display[j] = userGuesses;
-        remainingLetters--;
-      }
+      // if (word[j] === userGuesses) {
+      //   display[j] = userGuesses;
+      //   remainingLetters--;
+      // }
     }
 
-    if (flag) {
-      console.log("win")
-    }
+
   }
-  $("#wrong").text(userGuesses)
+
+
+
+
+  $("#wrong").text(wrongLetter)
   $("#left").text(attemptsLeft)
   // my adds
   $("#wins").text(wins)
