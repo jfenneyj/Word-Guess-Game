@@ -55,35 +55,38 @@ function resetGame(){
 document.onkeyup = function (event) {
   if (event.which >= 48 && event.which <= 90) {
 
-    // // checking to see if letter exist inside the word
-    // if (randomWord.indexOf(userGuesses) > -1) {
-    //   console.log("yes");
-    // }
-    // else {
-    //   wrongLetter.push(userGuesses);
-    //   console.log(wrongLetter);
-    // }
-
     if (attemptsLeft == 0) {
       losses++;
       resetGame();
     } else {
       var letter = event.key.toLowerCase();
-console.log(letter);
+      console.log(letter);
 
       if (userGuesses.indexOf(letter) == -1 && randomWord.indexOf(letter) > -1) {
         userGuesses.push(letter)
-        console.log(userGuesses);
+        // console.log(userGuesses);
+        evaluateGuess(letter);
       }
       else if (randomWord.indexOf(letter) == -1) {
         wrongLetter.push(letter);
         attemptsLeft--;
       }
 
+
+      function evaluateGuess(letter) {
+        var positions = [];
+// repalace underscore with letter?
+        for (var c = 0; word[currentWordIndex].length; i++) {
+          if (word[currentwordIndex][c] === letter){
+            positions.push(c);
+          }
+        }
+      }
+
       var word = randomWord.split("");
 
       var flag = true;
-      // displays underscores
+      
       for (var i = 0; i < word.length; i++) {
         if (userGuesses.indexOf(word[i]) == -1) {
           flag = false;
@@ -95,17 +98,7 @@ console.log(letter);
         wins++;
         resetGame();
       }
-      
-
-      //console.log(userGuesses.includes(word[j]))
-      // *update game with guess
-      // if (word[j] === userGuesses) {
-      //   display[j] = userGuesses;
-      //   remainingLetters--;
-      // }
     }
-
-
   }
 
 
@@ -113,10 +106,22 @@ console.log(letter);
 
   $("#wrong").text(wrongLetter)
   $("#left").text(attemptsLeft)
-  // my adds
   $("#wins").text(wins)
   $("#losses").text(losses)
 }
 
+ // // checking to see if letter exist inside the word
+    // if (randomWord.indexOf(userGuesses) > -1) {
+    //   console.log("yes");
+    // }
+    // else {
+    //   wrongLetter.push(userGuesses);
+    //   console.log(wrongLetter);
+    // }
 
-
+    //console.log(userGuesses.includes(word[j]))
+      // *update game with guess
+      // if (word[j] === userGuesses) {
+      //   display[j] = userGuesses;
+      //   remainingLetters--;
+      // }
