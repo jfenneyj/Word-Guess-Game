@@ -41,7 +41,7 @@ function resetGame(){
   display = "";
   // displays underscores
   for (var i = 0; i < word.length; i++) {
-    display = display + "_ "
+    display = display + " _ "
   
   }
   console.log(display);
@@ -65,23 +65,25 @@ document.onkeyup = function (event) {
       if (userGuesses.indexOf(letter) == -1 && randomWord.indexOf(letter) > -1) {
         userGuesses.push(letter)
         // console.log(userGuesses);
-        evaluateGuess(letter);
+        // evaluateGuess(letter);
       }
       else if (randomWord.indexOf(letter) == -1) {
         wrongLetter.push(letter);
         attemptsLeft--;
       }
 
+      console.log('this is user guess',userGuesses)
 
-      function evaluateGuess(letter) {
-        var positions = [];
-// repalace underscore with letter?
-        for (var c = 0; word[currentWordIndex].length; i++) {
-          if (word[currentwordIndex][c] === letter){
-            positions.push(c);
-          }
-        }
-      }
+
+//       function evaluateGuess(letter) {
+//         var positions = [];
+// // replace underscore with letter?
+//         for (var c = 0; word[currentWordIndex].length; i++) {
+//           if (word[currentwordIndex][c] === letter){
+//             positions.push(c);
+//           }
+//         }
+//       }
 
       var word = randomWord.split("");
 
