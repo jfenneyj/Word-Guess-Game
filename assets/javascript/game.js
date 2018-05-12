@@ -7,42 +7,42 @@ var attemptsLeft = 10;
 var display = "  _  ";
 var userGuesses = [];
 var wrongLetter = [];
-
+var randomWord = "";
+var word = "";
 // Function
 //////////////////////////////////////
 
 
 // Call a random word
-var randomWord = guessWord[Math.floor(Math.random() * guessWord.length)];
-console.log(randomWord);
+// var randomWord = guessWord[Math.floor(Math.random() * guessWord.length)];
+// console.log(randomWord);
 
-// set up letter array
+// // set up letter array
 
-var word = randomWord.split("");
-console.log(word);
+// var word = randomWord.split("");
+// console.log(word);
 
 // displays underscores
-for (var i = 0; i < word.length; i++) {
-  display = display + "_ "
+// for (var i = 0; i < word.length; i++) {
+//   display = display + "_ "
 
-}
-console.log(display);
-$("#letters").text(display);
+// }
+// console.log(display);
+// $("#letters").text(display);
 
 
 function resetGame(){
-  var randomWord = guessWord[Math.floor(Math.random() * guessWord.length)];
+   randomWord = guessWord[Math.floor(Math.random() * guessWord.length)];
   console.log(randomWord);
   
   // set up letter array
   
-  var word = randomWord.split("");
+   word = randomWord.split("");
   console.log(word);
-  display = "";
+  display = [];
   // displays underscores
   for (var i = 0; i < word.length; i++) {
-    display = display + " _ "
-  
+    display.push(" _ ")
   }
   console.log(display);
   $("#letters").text(display);
@@ -51,26 +51,37 @@ function resetGame(){
 }
 
 
+resetGame();
 
 document.onkeyup = function (event) {
   if (event.which >= 48 && event.which <= 90) {
-
+    attemptsLeft--;
+    
     if (attemptsLeft == 0) {
       losses++;
       resetGame();
     } else {
       var letter = event.key.toLowerCase();
-      console.log(letter);
 
-      if (userGuesses.indexOf(letter) == -1 && randomWord.indexOf(letter) > -1) {
-        userGuesses.push(letter)
-        // console.log(userGuesses);
-        // evaluateGuess(letter);
+      for(var i = 0; i < randomWord.length; i++){
+        // console.log(randomWord[i]);
+        console.log(i)
+        if (letter === randomWord[i]) {
+          display[i] = letter;
+          $("#letters").text(display);
+          
+        }
+
       }
-      else if (randomWord.indexOf(letter) == -1) {
-        wrongLetter.push(letter);
-        attemptsLeft--;
-      }
+      // if (userGuesses.indexOf(letter) == -1 && randomWord.indexOf(letter) > -1) {
+      //   userGuesses.push(letter)
+      //   // console.log(userGuesses);
+      //   evaluateGuess(letter);
+      // }
+      // else if (randomWord.indexOf(letter) == -1) {
+      //   wrongLetter.push(letter);
+      //   attemptsLeft--;
+      // }
 
       console.log('this is user guess',userGuesses)
 
