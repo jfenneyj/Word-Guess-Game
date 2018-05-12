@@ -124,17 +124,17 @@ document.onkeyup = function (event) {
 }
 
  // // checking to see if letter exist inside the word
-    // if (randomWord.indexOf(userGuesses) > -1) {
-    //   console.log("yes");
-    // }
-    // else {
-    //   wrongLetter.push(userGuesses);
-    //   console.log(wrongLetter);
-    // }
+    if (randomWord.indexOf(userGuesses) > -1) {
+      console.log("yes");
+    }
+    else {
+      wrongLetter.push(userGuesses);
+      console.log(wrongLetter);
+    }
 
-    //console.log(userGuesses.includes(word[j]))
+    console.log(userGuesses.includes(word[j]))
       // *update game with guess
-      // if (word[j] === userGuesses) {
-      //   display[j] = userGuesses;
-      //   remainingLetters--;
-      // }
+      if (word[j] === userGuesses) {
+        display[j] = userGuesses;
+        remainingLetters--;
+      }
